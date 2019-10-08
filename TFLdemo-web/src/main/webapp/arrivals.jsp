@@ -16,7 +16,7 @@
 <% response.setIntHeader("Refresh", 10); %>
    	<div id="wrapper">
    		<div id="header">
-   			<h1>Great Portland Street Tube Arrivals  </h1>
+   			<h1 align="center">Great Portland Street Tube Arrivals  </h1>
    		</div>
    	</div>
    	<div id="container">
@@ -29,7 +29,7 @@
    				    
    					<th>Destination</th>
     				<th>Platform</th>
-   					<th>Arrives In</th>
+   					<th>Arrives In (mins)</th>
    				</tr>
    			<!-- loop over and print customers -->
    				<c:forEach var="arrivalRecord" items="${arrivalSchedule.arrivalRecords}">
