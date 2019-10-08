@@ -20,7 +20,7 @@ public class ArrivalsController {
 	public String home(Model model) {
 
 		// get the arrival schedule. No need to pass a search parameter as the Arrivals
-		// service  does not currently search for the station id and is hard-coded for
+		// service  does not currently search for the station details and is hard-coded for
 		// Great Portland Street
 		ArrivalSchedule arrivalSchedule = arrivalsService.getTubeArrivals(null);
 		model.addAttribute("arrivalSchedule", arrivalSchedule);
