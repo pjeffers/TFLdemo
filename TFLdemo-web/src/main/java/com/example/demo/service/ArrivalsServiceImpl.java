@@ -2,8 +2,10 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,6 +56,10 @@ public class ArrivalsServiceImpl implements ArrivalsService{
 		// iterate through the list of objects casting each one to a map and then retrieve the arrival
 		// record details from each map. Create a new arrival record for each set of details and add
 		// it to the arrivals list.
+		
+		//map for sorting by platform
+		Map <String,List<ArrivalRecord>> platformMap = new HashMap<>();
+		
 		for(Object o : list) {
 			
 			if(o instanceof Map) {
@@ -66,13 +72,34 @@ public class ArrivalsServiceImpl implements ArrivalsService{
 				String platformName     = (String) 	map.get("platformName");
 				Integer timeToStation 	= (Integer)	map.get("timeToStation");
 				
-				ArrivalRecord arrivalRecord =new ArrivalRecord(destination, platformName, timeToStation);
-				arrivalsList.add(arrivalRecord);
-
+				// code for organising by platform
+				if (platformMap.containsKey(platformName)){
+					ArrayList<ArrivalRecord> platformList = (ArrayList) platformMap.get(platformName);
+					platformList.add(new ArrivalRecord(destination, platformName, timeToStation));
+					platformMap.put(platformName, platformList);
+				}else{
+					ArrayList<ArrivalRecord> platformList = new ArrayList<>();
+					platformList.add(new ArrivalRecord(destination, platformName, timeToStation));
+					platformMap.put(platformName, platformList);
+				}
+				
+				//code for adding records which are not organised by platform
+				//ArrivalRecord arrivalRecord =new ArrivalRecord(destination, platformName, timeToStation);
+				//arrivalsList.add(arrivalRecord);
 			}
 
-		}	
-		Collections.sort(arrivalsList);
+		}
+		
+		//code for sorting records organised by platform
+		for (Map.Entry <String,List<ArrivalRecord>> entry : platformMap.entrySet()) {
+			
+			List <ArrivalRecord> tempList = entry.getValue();
+			Collections.sort(tempList);
+			arrivalsList.addAll(tempList);
+		}
+		
+	  //code for sorting records by time until arrival only (not organised by platform) 
+	  //Collections.sort(arrivalsList);
       
 	  // create the arrival schedule, we can pass an empty string for the station name as it is,for our purposes, 
 	  // currently hard-coded in the home page. This could change if arrivals service is made more generic

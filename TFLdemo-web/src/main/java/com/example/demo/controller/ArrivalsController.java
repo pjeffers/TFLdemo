@@ -22,7 +22,15 @@ public class ArrivalsController {
 		// get the arrival schedule. No need to pass a search parameter as the Arrivals
 		// service  does not currently search for the station details and is hard-coded for
 		// Great Portland Street
-		ArrivalSchedule arrivalSchedule = arrivalsService.getTubeArrivals(null);
+		ArrivalSchedule arrivalSchedule;
+		try {
+			arrivalSchedule = arrivalsService.getTubeArrivals(null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw(e);
+		
+		}
 		model.addAttribute("arrivalSchedule", arrivalSchedule);
 
 		return "arrivals";
