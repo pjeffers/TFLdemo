@@ -22,9 +22,9 @@ import com.example.demo.model.ArrivalSchedule;
 public class ArrivalsServiceImpl implements ArrivalsService{
 	/* This service returns the arrival schedule for Great Portland Street tube station.
  	 * Although a station search string is passed, the URL for arrivals at Great Portland Street tube 
-     * station is currently hard-coded, this is OK as 
-     * it is unlikely to change. The URL contains the code for the station: 940GZZLUGPS, obtained using the  
-	 * stop point search URL:"https://api.tfl.gov.uk/StopPoint/Search?query=Great Portland Street&modes=tube"
+ 	 * station is currently hard-coded, this is OK as 
+ 	 * it is unlikely to change. The URL contains the code for the station: 940GZZLUGPS, obtained using the  
+ 	 * stop point search URL:"https://api.tfl.gov.uk/StopPoint/Search?query=Great Portland Street&modes=tube"
 	 * with Postman. This URL returns the station details matching a search string. in the example url above
 	 * it would return only one name. Future improvements, which would allow the retrieval of arrival details 
 	 * for any station, include implementing the method getStationDetails to return the name and ID
@@ -74,13 +74,13 @@ public class ArrivalsServiceImpl implements ArrivalsService{
 				
 				// code for organising by platform
 				if (platformMap.containsKey(platformName)){
-					ArrayList<ArrivalRecord> platformList = (ArrayList) platformMap.get(platformName);
-					platformList.add(new ArrivalRecord(destination, platformName, timeToStation));
-					platformMap.put(platformName, platformList);
+					ArrayList<ArrivalRecord> platformArrivalsList = (ArrayList) platformMap.get(platformName);
+					platformArrivalsList.add(new ArrivalRecord(destination, platformName, timeToStation));
+					platformMap.put(platformName, platformArrivalsList);
 				}else{
-					ArrayList<ArrivalRecord> platformList = new ArrayList<>();
-					platformList.add(new ArrivalRecord(destination, platformName, timeToStation));
-					platformMap.put(platformName, platformList);
+					ArrayList<ArrivalRecord> platformArrivalsList = new ArrayList<>();
+					platformArrivalsList.add(new ArrivalRecord(destination, platformName, timeToStation));
+					platformMap.put(platformName, platformArrivalsList);
 				}
 				
 				//code for adding records which are not organised by platform
@@ -93,9 +93,9 @@ public class ArrivalsServiceImpl implements ArrivalsService{
 		//code for sorting records organised by platform
 		for (Map.Entry <String,List<ArrivalRecord>> entry : platformMap.entrySet()) {
 			
-			List <ArrivalRecord> tempList = entry.getValue();
-			Collections.sort(tempList);
-			arrivalsList.addAll(tempList);
+			List <ArrivalRecord> platformArrivalsList = entry.getValue();
+			Collections.sort(platformArrivalsList);
+			arrivalsList.addAll(platformArrivalsList);
 		}
 		
 	  //code for sorting records by time until arrival only (not organised by platform) 
