@@ -20,10 +20,10 @@ import com.example.demo.model.ArrivalSchedule;
 
 @Service
 public class ArrivalsServiceImpl implements ArrivalsService{
-    /* This service returns the arrival schedule for Great Portland Street tube station.
-     * Although a station search string is passed, the URL for arrivals at Great Portland Street tube 
-     * station is currently hardcoded, this is OK as 
-	 * it is unlikely to change. The URL contains the code for the station: 940GZZLUGPS, obtained using the  
+	/* This service returns the arrival schedule for Great Portland Street tube station.
+ 	 * Although a station search string is passed, the URL for arrivals at Great Portland Street tube 
+     * station is currently hard-coded, this is OK as 
+     * it is unlikely to change. The URL contains the code for the station: 940GZZLUGPS, obtained using the  
 	 * stop point search URL:"https://api.tfl.gov.uk/StopPoint/Search?query=Great Portland Street&modes=tube"
 	 * with Postman. This URL returns the station details matching a search string. in the example url above
 	 * it would return only one name. Future improvements, which would allow the retrieval of arrival details 
